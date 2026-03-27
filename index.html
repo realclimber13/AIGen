@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image & Video Creator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 AI Image & Video Creator</h1>
+            <p class="subtitle">Generate images and videos with AI</p>
+        </header>
+
+        <main>
+            <!-- API Key Section -->
+            <section class="settings-section">
+                <h2>API Configuration</h2>
+                <div class="api-key-input">
+                    <label for="apiKey">Hugging Face API Key:</label>
+                    <input type="password" id="apiKey" placeholder="Enter your HF API key">
+                    <button id="saveApiKey" class="btn btn-secondary">Save API Key</button>
+                    <span id="apiStatus" class="status-indicator"></span>
+                </div>
+                <p class="help-text">Get your free API key at <a href="https://huggingface.co/settings/tokens" target="_blank">huggingface.co</a></p>
+            </section>
+
+            <!-- Tab Navigation -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="image-tab">Image Generator</button>
+                <button class="tab-btn" data-tab="video-tab">Video Creator</button>
+                <button class="tab-btn" data-tab="gallery-tab">Gallery</button>
+            </div>
+
+            <!-- Image Generator Tab -->
+            <section id="image-tab" class="tab-content active">
+                <h2>Image Generator</h2>
+                <div class="form-group">
+                    <label for="imagePrompt">Describe your image:</label>
+                    <textarea id="imagePrompt" placeholder="e.g., A serene sunset over mountains, oil painting style..." rows="4"></textarea>
+                </div>
+
+                <div class="options-grid">
+                    <div class="form-group">
+                        <label for="imageModel">Model:</label>
+                        <select id="imageModel">
+                            <option value="stabilityai/stable-diffusion-2">Stable Diffusion 2</option>
+                            <option value="runwayml/stable-diffusion-v1-5">Stable Diffusion 1.5</option>
+                            <option value="CompVis/stable-diffusion-v1-4">Stable Diffusion 1.4</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageSteps">Steps (quality):</label>
+                        <input type="range" id="imageSteps" min="1" max="50" value="20">
+                        <span id="stepsValue">20</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageGuidance">Guidance Scale:</label>
+                        <input type="range" id="imageGuidance" min="1" max="25" value="7.5" step="0.5">
+                        <span id="guidanceValue">7.5</span>
+                    </div>
+                </div>
+
+                <button id="generateImageBtn" class="btn btn-primary">Generate Image</button>
+                <div id="imageLoader" class="loader hidden"></div>
+                <div id="imageOutput" class="output-section hidden">
+                    <img id="generatedImage" alt="Generated image">
+                    <div class="button-group">
+                        <button id="downloadImageBtn" class="btn btn-secondary">Download Image</button>
+                        <button id="saveToGalleryBtn" class="btn btn-secondary">Save to Gallery</button>
+                    </div>
+                </div>
+                <div id="imageError" class="error-message hidden"></div>
+            </section>
+
+            <!-- Video Creator Tab -->
+            <section id="video-tab" class="tab-content">
+                <h2>Video Creator</h2>
+                <div class="form-group">
+                    <label for="videoPrompt">Describe your video:</label>
+                    <textarea id="videoPrompt" placeholder="e.g., A cat dancing on a sunny beach..." rows="4"></textarea>
+                </div>
+
+                <div class="options-grid">
+                    <div class="form-group">
+                        <label for="videoDuration">Duration (seconds):</label>
+                        <input type="number" id="videoDuration" min="1" max="30" value="5">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="videoFPS">Frame Rate (FPS):</label>
+                        <input type="number" id="videoFPS" min="15" max="60" value="24">
+                    </div>
+                </div>
+
+                <button id="generateVideoBtn" class="btn btn-primary">Generate Video</button>
+                <div id="videoLoader" class="loader hidden"></div>
+                <div id="videoOutput" class="output-section hidden">
+                    <video id="generatedVideo" controls></video>
+                    <div class="button-group">
+                        <button id="downloadVideoBtn" class="btn btn-secondary">Download Video</button>
+                        <button id="saveVideoToGalleryBtn" class="btn btn-secondary">Save to Gallery</button>
+                    </div>
+                </div>
+                <div id="videoError" class="error-message hidden"></div>
+            </section>
+
+            <!-- Gallery Tab -->
+            <section id="gallery-tab" class="tab-content">
+                <h2>Your Gallery</h2>
+                <div id="galleryContainer" class="gallery-grid">
+                    <p class="empty-state">No items in gallery yet. Create something!</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 AI Creator Studio | Powered by Hugging Face | <a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
